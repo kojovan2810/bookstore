@@ -219,10 +219,6 @@ $html = '
             <div class="info-value">' . htmlspecialchars($data_pembeli['email_pembeli']) . '</div>
         </div>
         <div class="info-row">
-            <div class="info-label">Tanggal Cetak:</div>
-            <div class="info-value">' . date('d F Y H:i') . '</div>
-        </div>
-        <div class="info-row">
             <div class="info-label">Total Transaksi:</div>
             <div class="info-value">' . $total_riwayat . ' transaksi</div>
         </div>';

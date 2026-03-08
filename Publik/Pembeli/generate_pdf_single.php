@@ -328,7 +328,7 @@ $html = '
             $html .= '
             <div class="section-title">Informasi Pengiriman</div>
             <div style="text-align: center; padding: 20px; color: #666;">
-                <i>Informasi pengiriman tidak tersedia</i>
+                <i>Pengiriman dibatalkan!</i>
             </div>';
         }
         

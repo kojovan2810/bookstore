@@ -92,7 +92,7 @@ foreach ($all_items as $item) {
 // Format tanggal
 $tanggal_format = date('d F Y', strtotime($tanggal_pesanan));
 $waktu_format = date('H:i:s', strtotime($tanggal_pesanan));
-$tanggal_cetak = date('d/m/Y H:i:s');
+$tanggal_cetak = date('d/m/Y ' . $waktu_format);
 
 // Fungsi untuk format Rupiah
 function formatRupiah($angka) {
@@ -353,7 +353,7 @@ if ($download) {
             
             <!-- Status -->
             <div class="status">
-                ✅ PEMBAYARAN LUNAS
+                PEMBAYARAN LUNAS
             </div>
             
             <!-- Customer Info -->

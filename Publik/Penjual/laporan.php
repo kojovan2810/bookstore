@@ -484,10 +484,6 @@ if (isset($_GET['download']) && $_GET['download'] == 'pdf') {
                 <span class="info-label">Filter:</span>
                 <span>' . htmlspecialchars($filter_text) . '</span>
             </div>
-            <div class="info-row">
-                <span class="info-label">Tanggal Cetak:</span>
-                <span>' . date('d F Y H:i:s') . '</span>
-            </div>
         </div>';
     
     // Statistik
@@ -589,253 +585,253 @@ if (isset($_GET['download']) && $_GET['download'] == 'pdf') {
     }
     
     // Diagram/chart (jika diagram atau all)
-    if ($download_type == 'diagram' || $download_type == 'all') {
-        $html .= '
-        <div class="page-break">
-            <h3 style="margin: 30px 0 20px 0; color: #4361ee;">ANALISIS DATA & DIAGRAM</h3>';
+    // if ($download_type == 'diagram' || $download_type == 'all') {
+    //     $html .= '
+    //     <div class="page-break">
+    //         <h3 style="margin: 30px 0 20px 0; color: #4361ee;">ANALISIS DATA & DIAGRAM</h3>';
             
-        if (!empty($labels_pdf)) {
-            // Diagram 1: Performa Bulanan (Bar Chart Manual)
-            $html .= '
-            <!-- Diagram 1: Performa Bulanan -->
-            <div class="diagram-box">
-                <div class="diagram-title">📈 DIAGRAM 1: PERFORMA BULANAN</div>
-                <div style="margin: 15px 0;">
-                    <p><strong>Keterangan Diagram:</strong> Grafik batang menunjukkan Penjualan, Modal, dan Keuntungan per bulan</p>
-                    <p><strong>Warna:</strong> Biru = Penjualan | Kuning = Modal | Hijau = Keuntungan</p>
-                </div>
+    //     if (!empty($labels_pdf)) {
+    //         // Diagram 1: Performa Bulanan (Bar Chart Manual)
+    //         $html .= '
+    //         <!-- Diagram 1: Performa Bulanan -->
+    //         <div class="diagram-box">
+    //             <div class="diagram-title">📈 DIAGRAM 1: PERFORMA BULANAN</div>
+    //             <div style="margin: 15px 0;">
+    //                 <p><strong>Keterangan Diagram:</strong> Grafik batang menunjukkan Penjualan, Modal, dan Keuntungan per bulan</p>
+    //                 <p><strong>Warna:</strong> Biru = Penjualan | Kuning = Modal | Hijau = Keuntungan</p>
+    //             </div>
                 
-                <!-- Bar Chart Manual -->
-                <div class="bar-chart">
-                    <div class="bar-container">';
+    //             <!-- Bar Chart Manual -->
+    //             <div class="bar-chart">
+    //                 <div class="bar-container">';
             
-            // Cari nilai maksimum untuk skala
-            $max_value = max(
-                max($penjualan_data_pdf),
-                max($modal_data_pdf),
-                max($keuntungan_data_pdf)
-            );
+    //         // Cari nilai maksimum untuk skala
+    //         $max_value = max(
+    //             max($penjualan_data_pdf),
+    //             max($modal_data_pdf),
+    //             max($keuntungan_data_pdf)
+    //         );
             
-            foreach ($labels_pdf as $index => $label) {
-                $height_penjualan = $max_value > 0 ? ($penjualan_data_pdf[$index] / $max_value) * 180 : 0;
-                $height_modal = $max_value > 0 ? ($modal_data_pdf[$index] / $max_value) * 180 : 0;
-                $height_keuntungan = $max_value > 0 ? ($keuntungan_data_pdf[$index] / $max_value) * 180 : 0;
+    //         foreach ($labels_pdf as $index => $label) {
+    //             $height_penjualan = $max_value > 0 ? ($penjualan_data_pdf[$index] / $max_value) * 180 : 0;
+    //             $height_modal = $max_value > 0 ? ($modal_data_pdf[$index] / $max_value) * 180 : 0;
+    //             $height_keuntungan = $max_value > 0 ? ($keuntungan_data_pdf[$index] / $max_value) * 180 : 0;
                 
-                $html .= '
-                        <div class="bar-group">
-                            <div class="bar-wrapper">
-                                <div class="bar" style="height: ' . $height_penjualan . 'px; background-color: #4361ee;">
-                                    <span class="bar-value">' . number_format($penjualan_data_pdf[$index] / 1000000, 1) . 'jt</span>
-                                </div>
-                                <div class="bar" style="height: ' . $height_modal . 'px; background-color: #ffc107;">
-                                    <span class="bar-value">' . number_format($modal_data_pdf[$index] / 1000000, 1) . 'jt</span>
-                                </div>
-                                <div class="bar" style="height: ' . $height_keuntungan . 'px; background-color: #28a745;">
-                                    <span class="bar-value">' . number_format($keuntungan_data_pdf[$index] / 1000000, 1) . 'jt</span>
-                                </div>
-                            </div>
-                            <div class="bar-label">' . date('M Y', strtotime($label)) . '</div>
-                        </div>';
-            }
+    //             $html .= '
+    //                     <div class="bar-group">
+    //                         <div class="bar-wrapper">
+    //                             <div class="bar" style="height: ' . $height_penjualan . 'px; background-color: #4361ee;">
+    //                                 <span class="bar-value">' . number_format($penjualan_data_pdf[$index] / 1000000, 1) . 'jt</span>
+    //                             </div>
+    //                             <div class="bar" style="height: ' . $height_modal . 'px; background-color: #ffc107;">
+    //                                 <span class="bar-value">' . number_format($modal_data_pdf[$index] / 1000000, 1) . 'jt</span>
+    //                             </div>
+    //                             <div class="bar" style="height: ' . $height_keuntungan . 'px; background-color: #28a745;">
+    //                                 <span class="bar-value">' . number_format($keuntungan_data_pdf[$index] / 1000000, 1) . 'jt</span>
+    //                             </div>
+    //                         </div>
+    //                         <div class="bar-label">' . date('M Y', strtotime($label)) . '</div>
+    //                     </div>';
+    //         }
             
-            $html .= '
-                    </div>
-                </div>
+    //         $html .= '
+    //                 </div>
+    //             </div>
                 
-                <div class="chart-summary">
-                    <div class="chart-summary-item">
-                        <span>Periode Analisis:</span>
-                        <strong>' . htmlspecialchars($filter_text) . '</strong>
-                    </div>
-                    <div class="chart-summary-item">
-                        <span>Total Bulan:</span>
-                        <strong>' . count($labels_pdf) . ' bulan</strong>
-                    </div>
-                </div>
-                <div class="diagram-note">* Diagram menunjukkan trend performa penjualan dari waktu ke waktu</div>
-            </div>
+    //             <div class="chart-summary">
+    //                 <div class="chart-summary-item">
+    //                     <span>Periode Analisis:</span>
+    //                     <strong>' . htmlspecialchars($filter_text) . '</strong>
+    //                 </div>
+    //                 <div class="chart-summary-item">
+    //                     <span>Total Bulan:</span>
+    //                     <strong>' . count($labels_pdf) . ' bulan</strong>
+    //                 </div>
+    //             </div>
+    //             <div class="diagram-note">* Diagram menunjukkan trend performa penjualan dari waktu ke waktu</div>
+    //         </div>
             
-            <!-- Data Bulanan untuk Diagram 1 -->
-            <div class="chart-container">
-                <div class="chart-title">DATA PERFORMA BULANAN</div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Bulan/Tahun</th>
-                            <th class="text-center">Transaksi</th>
-                            <th class="text-center">Buku Terjual</th>
-                            <th class="text-right">Total Penjualan</th>
-                            <th class="text-right">Total Modal</th>
-                            <th class="text-right">Keuntungan</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
+    //         <!-- Data Bulanan untuk Diagram 1 -->
+    //         <div class="chart-container">
+    //             <div class="chart-title">DATA PERFORMA BULANAN</div>
+    //             <table class="table">
+    //                 <thead>
+    //                     <tr>
+    //                         <th>Bulan/Tahun</th>
+    //                         <th class="text-center">Transaksi</th>
+    //                         <th class="text-center">Buku Terjual</th>
+    //                         <th class="text-right">Total Penjualan</th>
+    //                         <th class="text-right">Total Modal</th>
+    //                         <th class="text-right">Keuntungan</th>
+    //                     </tr>
+    //                 </thead>
+    //                 <tbody>';
             
-            foreach ($labels_pdf as $index => $label) {
-                $keuntungan_class = $keuntungan_data_pdf[$index] >= 0 ? 'profit-positive' : '';
+    //         foreach ($labels_pdf as $index => $label) {
+    //             $keuntungan_class = $keuntungan_data_pdf[$index] >= 0 ? 'profit-positive' : '';
                 
-                $html .= '
-                <tr>
-                    <td>' . $label . '</td>
-                    <td class="text-center">' . number_format($transaksi_data_pdf[$index] ?? 0, 0, ',', '.') . '</td>
-                    <td class="text-center">' . number_format($buku_data_pdf[$index] ?? 0, 0, ',', '.') . '</td>
-                    <td class="text-right">' . formatRupiah($penjualan_data_pdf[$index] ?? 0) . '</td>
-                    <td class="text-right">' . formatRupiah($modal_data_pdf[$index] ?? 0) . '</td>
-                    <td class="text-right ' . $keuntungan_class . '">' . formatRupiah($keuntungan_data_pdf[$index] ?? 0) . '</td>
-                </tr>';
-            }
+    //             $html .= '
+    //             <tr>
+    //                 <td>' . $label . '</td>
+    //                 <td class="text-center">' . number_format($transaksi_data_pdf[$index] ?? 0, 0, ',', '.') . '</td>
+    //                 <td class="text-center">' . number_format($buku_data_pdf[$index] ?? 0, 0, ',', '.') . '</td>
+    //                 <td class="text-right">' . formatRupiah($penjualan_data_pdf[$index] ?? 0) . '</td>
+    //                 <td class="text-right">' . formatRupiah($modal_data_pdf[$index] ?? 0) . '</td>
+    //                 <td class="text-right ' . $keuntungan_class . '">' . formatRupiah($keuntungan_data_pdf[$index] ?? 0) . '</td>
+    //             </tr>';
+    //         }
             
-            $keuntungan_total_class = $total_keuntungan_grafik >= 0 ? 'profit-positive' : '';
+    //         $keuntungan_total_class = $total_keuntungan_grafik >= 0 ? 'profit-positive' : '';
             
-            $html .= '
-                <tr class="total-row">
-                    <td><strong>GRAND TOTAL</strong></td>
-                    <td class="text-center"><strong>' . number_format($total_transaksi_grafik, 0, ',', '.') . '</strong></td>
-                    <td class="text-center"><strong>' . number_format($total_buku_grafik, 0, ',', '.') . '</strong></td>
-                    <td class="text-right"><strong>' . formatRupiah($total_penjualan_grafik) . '</strong></td>
-                    <td class="text-right"><strong>' . formatRupiah($total_modal_grafik) . '</strong></td>
-                    <td class="text-right ' . $keuntungan_total_class . '"><strong>' . formatRupiah($total_keuntungan_grafik) . '</strong></td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
+    //         $html .= '
+    //             <tr class="total-row">
+    //                 <td><strong>GRAND TOTAL</strong></td>
+    //                 <td class="text-center"><strong>' . number_format($total_transaksi_grafik, 0, ',', '.') . '</strong></td>
+    //                 <td class="text-center"><strong>' . number_format($total_buku_grafik, 0, ',', '.') . '</strong></td>
+    //                 <td class="text-right"><strong>' . formatRupiah($total_penjualan_grafik) . '</strong></td>
+    //                 <td class="text-right"><strong>' . formatRupiah($total_modal_grafik) . '</strong></td>
+    //                 <td class="text-right ' . $keuntungan_total_class . '"><strong>' . formatRupiah($total_keuntungan_grafik) . '</strong></td>
+    //             </tr>
+    //         </tbody>
+    //     </table>
+    //     </div>
         
-        <!-- Diagram 2: Ringkasan Performa -->
-        <div class="diagram-box">
-            <div class="diagram-title">📊 DIAGRAM 2: RINGKASAN PERFORMA</div>
-            <div style="margin: 15px 0;">
-                <p><strong>Keterangan Diagram:</strong> Perbandingan jumlah Transaksi vs Buku Terjual per bulan</p>
-                <p><strong>Warna:</strong> Biru = Jumlah Transaksi | Hijau = Buku Terjual</p>
-            </div>
+    //     <!-- Diagram 2: Ringkasan Performa -->
+    //     <div class="diagram-box">
+    //         <div class="diagram-title">📊 DIAGRAM 2: RINGKASAN PERFORMA</div>
+    //         <div style="margin: 15px 0;">
+    //             <p><strong>Keterangan Diagram:</strong> Perbandingan jumlah Transaksi vs Buku Terjual per bulan</p>
+    //             <p><strong>Warna:</strong> Biru = Jumlah Transaksi | Hijau = Buku Terjual</p>
+    //         </div>
             
-            <!-- Bar Chart Ringkasan -->
-            <div class="bar-chart">
-                <div class="bar-container">';
+    //         <!-- Bar Chart Ringkasan -->
+    //         <div class="bar-chart">
+    //             <div class="bar-container">';
             
-            // Cari nilai maksimum untuk skala ringkasan
-            $max_summary = max(
-                max($transaksi_data_pdf),
-                max($buku_data_pdf)
-            );
+    //         // Cari nilai maksimum untuk skala ringkasan
+    //         $max_summary = max(
+    //             max($transaksi_data_pdf),
+    //             max($buku_data_pdf)
+    //         );
             
-            foreach ($labels_pdf as $index => $label) {
-                $height_transaksi = $max_summary > 0 ? ($transaksi_data_pdf[$index] / $max_summary) * 180 : 0;
-                $height_buku = $max_summary > 0 ? ($buku_data_pdf[$index] / $max_summary) * 180 : 0;
+    //         foreach ($labels_pdf as $index => $label) {
+    //             $height_transaksi = $max_summary > 0 ? ($transaksi_data_pdf[$index] / $max_summary) * 180 : 0;
+    //             $height_buku = $max_summary > 0 ? ($buku_data_pdf[$index] / $max_summary) * 180 : 0;
                 
-                $html .= '
-                        <div class="bar-group">
-                            <div class="bar-wrapper">
-                                <div class="bar" style="height: ' . $height_transaksi . 'px; background-color: #4361ee;">
-                                    <span class="bar-value">' . number_format($transaksi_data_pdf[$index]) . '</span>
-                                </div>
-                                <div class="bar" style="height: ' . $height_buku . 'px; background-color: #28a745;">
-                                    <span class="bar-value">' . number_format($buku_data_pdf[$index]) . '</span>
-                                </div>
-                            </div>
-                            <div class="bar-label">' . date('M Y', strtotime($label)) . '</div>
-                        </div>';
-            }
+    //             $html .= '
+    //                     <div class="bar-group">
+    //                         <div class="bar-wrapper">
+    //                             <div class="bar" style="height: ' . $height_transaksi . 'px; background-color: #4361ee;">
+    //                                 <span class="bar-value">' . number_format($transaksi_data_pdf[$index]) . '</span>
+    //                             </div>
+    //                             <div class="bar" style="height: ' . $height_buku . 'px; background-color: #28a745;">
+    //                                 <span class="bar-value">' . number_format($buku_data_pdf[$index]) . '</span>
+    //                             </div>
+    //                         </div>
+    //                         <div class="bar-label">' . date('M Y', strtotime($label)) . '</div>
+    //                     </div>';
+    //         }
             
-            $html .= '
-                    </div>
-                </div>
+    //         $html .= '
+    //                 </div>
+    //             </div>
             
-            <div class="chart-summary">
-                <div class="chart-summary-item">
-                    <span>Rasio Buku/Transaksi:</span>
-                    <strong>' . ($total_transaksi_grafik > 0 ? number_format(($total_buku_grafik / $total_transaksi_grafik), 1) : '0') . ' buku/transaksi</strong>
-                </div>
-                <div class="chart-summary-item">
-                    <span>Keuntungan/Bulan (Rata-rata):</span>
-                    <strong class="profit-positive">' . formatRupiah($total_keuntungan_grafik / max(1, count($labels_pdf))) . '</strong>
-                </div>
-            </div>
-            <div class="diagram-note">* Diagram menunjukkan hubungan antara jumlah transaksi dengan volume penjualan</div>
-        </div>';
+    //         <div class="chart-summary">
+    //             <div class="chart-summary-item">
+    //                 <span>Rasio Buku/Transaksi:</span>
+    //                 <strong>' . ($total_transaksi_grafik > 0 ? number_format(($total_buku_grafik / $total_transaksi_grafik), 1) : '0') . ' buku/transaksi</strong>
+    //             </div>
+    //             <div class="chart-summary-item">
+    //                 <span>Keuntungan/Bulan (Rata-rata):</span>
+    //                 <strong class="profit-positive">' . formatRupiah($total_keuntungan_grafik / max(1, count($labels_pdf))) . '</strong>
+    //             </div>
+    //         </div>
+    //         <div class="diagram-note">* Diagram menunjukkan hubungan antara jumlah transaksi dengan volume penjualan</div>
+    //     </div>';
         
-        } else {
-            $html .= '
-            <div style="text-align: center; padding: 40px; color: #666;">
-                <i class="fas fa-chart-bar" style="font-size: 48px; margin-bottom: 20px;"></i>
-                <h3>Tidak Ada Data Grafik</h3>
-                <p>Tidak ada data untuk ditampilkan dalam grafik pada periode yang dipilih.</p>
-            </div>';
-        }
+    //     } else {
+    //         $html .= '
+    //         <div style="text-align: center; padding: 40px; color: #666;">
+    //             <i class="fas fa-chart-bar" style="font-size: 48px; margin-bottom: 20px;"></i>
+    //             <h3>Tidak Ada Data Grafik</h3>
+    //             <p>Tidak ada data untuk ditampilkan dalam grafik pada periode yang dipilih.</p>
+    //         </div>';
+    //     }
         
-        // Statistik Lanjutan untuk Analisis
-        if (!empty($labels_pdf)) {
-            $html .= '
-            <!-- Statistik Lanjutan -->
-            <div class="chart-container">
-                <div class="chart-title">STATISTIK ANALISIS LANJUTAN</div>
-                <div class="chart-summary" style="grid-template-columns: repeat(3, 1fr);">
-                    <div class="chart-summary-item">
-                        <span>Bulan dengan Penjualan Tertinggi:</span>
-                        <strong>';
+    //     // Statistik Lanjutan untuk Analisis
+    //     if (!empty($labels_pdf)) {
+    //         $html .= '
+    //         <!-- Statistik Lanjutan -->
+    //         <div class="chart-container">
+    //             <div class="chart-title">STATISTIK ANALISIS LANJUTAN</div>
+    //             <div class="chart-summary" style="grid-template-columns: repeat(3, 1fr);">
+    //                 <div class="chart-summary-item">
+    //                     <span>Bulan dengan Penjualan Tertinggi:</span>
+    //                     <strong>';
             
-            if (!empty($penjualan_data_pdf)) {
-                $max_penjualan = max($penjualan_data_pdf);
-                $max_index = array_search($max_penjualan, $penjualan_data_pdf);
-                $html .= formatRupiah($max_penjualan) . '<br><small>(' . ($labels_pdf[$max_index] ?? '-') . ')</small>';
-            } else {
-                $html .= '-';
-            }
+    //         if (!empty($penjualan_data_pdf)) {
+    //             $max_penjualan = max($penjualan_data_pdf);
+    //             $max_index = array_search($max_penjualan, $penjualan_data_pdf);
+    //             $html .= formatRupiah($max_penjualan) . '<br><small>(' . ($labels_pdf[$max_index] ?? '-') . ')</small>';
+    //         } else {
+    //             $html .= '-';
+    //         }
             
-            $html .= '</strong>
-                    </div>
-                    <div class="chart-summary-item">
-                        <span>Bulan dengan Keuntungan Tertinggi:</span>
-                        <strong class="profit-positive">';
+    //         $html .= '</strong>
+    //                 </div>
+    //                 <div class="chart-summary-item">
+    //                     <span>Bulan dengan Keuntungan Tertinggi:</span>
+    //                     <strong class="profit-positive">';
             
-            if (!empty($keuntungan_data_pdf)) {
-                $max_keuntungan = max($keuntungan_data_pdf);
-                $max_index = array_search($max_keuntungan, $keuntungan_data_pdf);
-                $html .= formatRupiah($max_keuntungan) . '<br><small>(' . ($labels_pdf[$max_index] ?? '-') . ')</small>';
-            } else {
-                $html .= '-';
-            }
+    //         if (!empty($keuntungan_data_pdf)) {
+    //             $max_keuntungan = max($keuntungan_data_pdf);
+    //             $max_index = array_search($max_keuntungan, $keuntungan_data_pdf);
+    //             $html .= formatRupiah($max_keuntungan) . '<br><small>(' . ($labels_pdf[$max_index] ?? '-') . ')</small>';
+    //         } else {
+    //             $html .= '-';
+    //         }
             
-            $html .= '</strong>
-                    </div>
-                    <div class="chart-summary-item">
-                        <span>Tren Keuntungan:</span>
-                        <strong>';
+    //         $html .= '</strong>
+    //                 </div>
+    //                 <div class="chart-summary-item">
+    //                     <span>Tren Keuntungan:</span>
+    //                     <strong>';
             
-            if (count($keuntungan_data_pdf) >= 2) {
-                $last_month = end($keuntungan_data_pdf);
-                $second_last = prev($keuntungan_data_pdf);
-                if ($second_last > 0) {
-                    $trend = (($last_month - $second_last) / $second_last) * 100;
-                    if ($trend > 0) {
-                        $html .= '<span class="profit-positive">↑ ' . number_format(abs($trend), 1) . '%</span>';
-                    } else {
-                        $html .= '<span class="profit-negative">↓ ' . number_format(abs($trend), 1) . '%</span>';
-                    }
-                } else {
-                    $html .= 'Stabil';
-                }
-            } else {
-                $html .= 'Data Tidak Cukup';
-            }
+    //         if (count($keuntungan_data_pdf) >= 2) {
+    //             $last_month = end($keuntungan_data_pdf);
+    //             $second_last = prev($keuntungan_data_pdf);
+    //             if ($second_last > 0) {
+    //                 $trend = (($last_month - $second_last) / $second_last) * 100;
+    //                 if ($trend > 0) {
+    //                     $html .= '<span class="profit-positive">↑ ' . number_format(abs($trend), 1) . '%</span>';
+    //                 } else {
+    //                     $html .= '<span class="profit-negative">↓ ' . number_format(abs($trend), 1) . '%</span>';
+    //                 }
+    //             } else {
+    //                 $html .= 'Stabil';
+    //             }
+    //         } else {
+    //             $html .= 'Data Tidak Cukup';
+    //         }
             
-            $html .= '</strong>
-                    </div>
-                </div>
-            </div>
+    //         $html .= '</strong>
+    //                 </div>
+    //             </div>
+    //         </div>
             
-            <!-- Kesimpulan Analisis -->
-            <div style="margin-top: 30px; padding: 20px; background: #e8f4fd; border-radius: 8px; border-left: 4px solid #4361ee;">
-                <h4 style="color: #4361ee; margin-bottom: 10px;">KESIMPULAN ANALISIS:</h4>
-                <ul style="margin: 0; padding-left: 20px; color: #333;">
-                    <li>Total periode analisis: <strong>' . count($labels_pdf) . ' bulan</strong></li>
-                    <li>Rata-rata keuntungan per bulan: <strong class="profit-positive">' . formatRupiah($total_keuntungan_grafik / max(1, count($labels_pdf))) . '</strong></li>
-                    <li>Efisiensi modal: <strong>' . ($total_modal_grafik > 0 ? number_format(($total_keuntungan_grafik / $total_modal_grafik) * 100, 1) : '0') . '%</strong></li>
-                    <li>Rasio penjualan/transaksi: <strong>' . ($total_transaksi_grafik > 0 ? number_format($total_buku_grafik / $total_transaksi_grafik, 1) : '0') . ' buku per transaksi</strong></li>
-                </ul>
-            </div>
-            </div>'; // End of page-break
-        }
-    }
+    //         <!-- Kesimpulan Analisis -->
+    //         <div style="margin-top: 30px; padding: 20px; background: #e8f4fd; border-radius: 8px; border-left: 4px solid #4361ee;">
+    //             <h4 style="color: #4361ee; margin-bottom: 10px;">KESIMPULAN ANALISIS:</h4>
+    //             <ul style="margin: 0; padding-left: 20px; color: #333;">
+    //                 <li>Total periode analisis: <strong>' . count($labels_pdf) . ' bulan</strong></li>
+    //                 <li>Rata-rata keuntungan per bulan: <strong class="profit-positive">' . formatRupiah($total_keuntungan_grafik / max(1, count($labels_pdf))) . '</strong></li>
+    //                 <li>Efisiensi modal: <strong>' . ($total_modal_grafik > 0 ? number_format(($total_keuntungan_grafik / $total_modal_grafik) * 100, 1) : '0') . '%</strong></li>
+    //                 <li>Rasio penjualan/transaksi: <strong>' . ($total_transaksi_grafik > 0 ? number_format($total_buku_grafik / $total_transaksi_grafik, 1) : '0') . ' buku per transaksi</strong></li>
+    //             </ul>
+    //         </div>
+    //         </div>'; // End of page-break
+    //     }
+    // }
     
     // Footer
     $html .= '

@@ -940,13 +940,6 @@ while ($item = $keranjang_query->fetch_assoc()) {
             <button class="menu-toggle" id="menuToggle">
                 <i class="fas fa-bars"></i>
             </button>
-            
-            <div class="search-container">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="Cari buku, penulis, atau kategori...">
-                </div>
-            </div>
 
             <div class="user-info">
                 <div class="user-details">

@@ -2015,24 +2015,51 @@ while ($row = $years_query->fetch_assoc()) {
                                     $is_refund = ($riwayat['status'] == 'Refund');
                                     
                                     // Hitung sisa waktu untuk refund
-                                    $sisa_waktu_html = '';
-                                    $selisih_jam = 0;
-                                    $sisa_jam = 0;
-                                    $sisa_menit = 0;
-                                    
-                                    if ($is_refund) {
-                                        $tanggal_pesanan = strtotime($riwayat['tanggal_pesanan']);
-                                        $sekarang = time();
-                                        $selisih_jam = floor(($sekarang - $tanggal_pesanan) / 3600);
-                                        
-                                        if ($selisih_jam < 24) {
-                                            $sisa_jam = 24 - $selisih_jam;
-                                            $sisa_menit = 60 - (($sekarang - $tanggal_pesanan) % 3600) / 60;
-                                            $sisa_waktu_html = '<div class="refund-time-info"><i class="fas fa-clock"></i> Selesaikan dalam ' . $sisa_jam . ' jam ' . floor($sisa_menit) . ' menit</div>';
-                                        } else {
-                                            $sisa_waktu_html = '<div class="refund-time-info" style="color: var(--gray);"><i class="fas fa-clock"></i> Waktu habis</div>';
-                                        }
-                                    }
+// Hitung sisa waktu untuk refund
+$sisa_waktu_html = '';
+$selisih_jam = 0;
+$sisa_jam = 0;
+$sisa_menit = 0;
+
+if ($is_refund) {
+    // Hitung sisa waktu untuk refund - VERSI PERBAIKAN
+$sisa_waktu_html = '';
+$selisih_jam = 0;
+$sisa_jam = 0;
+$sisa_menit = 0;
+
+if ($is_refund) {
+    // Konversi tanggal pesanan ke timestamp
+    $tanggal_pesanan = strtotime($riwayat['tanggal_pesanan']);
+    $sekarang = time();
+    
+    // Batas akhir adalah 24 jam setelah pesanan dibuat
+    $batas_akhir = $tanggal_pesanan + (24 * 60 * 60); // 24 jam dalam detik
+    
+    // Hitung sisa waktu (batas akhir - waktu sekarang)
+    $sisa_detik = $batas_akhir - $sekarang;
+    
+    // Cek apakah masih dalam batas waktu
+    if ($sisa_detik > 0) {
+        // Konversi ke jam, menit, detik
+        $sisa_jam = floor($sisa_detik / 3600);
+        $sisa_menit = floor(($sisa_detik % 3600) / 60);
+        $sisa_detik_display = $sisa_detik % 60;
+        
+        // Validasi: pastikan sisa jam tidak lebih dari 24
+        if ($sisa_jam <= 24) {
+            $sisa_waktu_html = '<div class="refund-time-info"><i class="fas fa-clock"></i> Sisa waktu: ' 
+                . $sisa_jam . ' jam ' . $sisa_menit . ' menit ' . $sisa_detik_display . ' detik</div>';
+        } else {
+            // Jika lebih dari 24 jam, berarti ada kesalahan, set ke 24 jam
+            $sisa_waktu_html = '<div class="refund-time-info"><i class="fas fa-clock"></i> Sisa waktu: 24 jam</div>';
+        }
+    } else {
+        // Waktu sudah habis
+        $sisa_waktu_html = '<div class="refund-time-info" style="color: var(--gray);"><i class="fas fa-clock"></i> Waktu habis</div>';
+    }
+}
+}
                                     
                                     // Link ekspedisi
                                     $ekspedisi_links = [

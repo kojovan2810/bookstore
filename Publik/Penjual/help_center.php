@@ -803,10 +803,10 @@ if(!$data_penjual){
             </div>
 
             <!-- Search Box -->
-            <div class="search-box">
+            <!-- <div class="search-box">
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="Cari solusi untuk masalah Anda...">
-            </div>
+            </div> -->
 
             <!-- Quick Links -->
             <div class="quick-links">
