@@ -1,5 +1,4 @@
 <!-- composer require dompdf/dompdf -->
-<label for=""></label>
 <?php
 session_start();
 include "../../Src/config.php";
